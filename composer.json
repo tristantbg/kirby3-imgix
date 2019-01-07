@@ -1,0 +1,19 @@
+{
+    "name": "tristantbg/imgx",
+    "description": "",
+    "version": "1.0.0",
+    "type": "kirby-plugin",
+    "license": "MIT",
+    "autoload": {
+        "files": ["config.php"]
+    },
+    "authors": [
+        {
+            "name": "Tristan Bagot",
+            "email": "hello@tristanbagot.com"
+        }
+    ],
+    "require": {
+        "imgix/imgix-php": "^2.1"
+    }
+}
