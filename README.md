@@ -1,13 +1,10 @@
-# Kirby3 VimeoFetcher
-
-Enables to fetch video data from the panel
+# Kirby3 Imgx
 
 config.php
 
 ```
 return [
-  'plugin.vimeofetcher.client_id' => 'key',
-  'plugin.vimeofetcher.client_secret' => 'secret',
-  'plugin.vimeofetcher.access_token' => 'token'
+  'plugin.imgx.disable' => false,
+  'plugin.imgx.url' => 'XXXXX.imgix.net'
 ];
 ```
