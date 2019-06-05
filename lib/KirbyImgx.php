@@ -13,7 +13,8 @@ class App
 
     private static $defaultParams  = [
         'fit' => 'crop',
-        'crop' => 'entropy'
+        'crop' => 'entropy',
+        'auto' => 'format'
       ];
     private static $builder = null;
 
@@ -43,7 +44,7 @@ class App
 
       $params = array_merge($params, self::$defaultParams);
 
-      $url = str_replace($kirby->root('media'), $file->mediaRoot());
+      $url = str_replace(kirby()->root('media'), '', $file->mediaRoot());
 
       return self::$builder->createURL($url, $params);
     }
