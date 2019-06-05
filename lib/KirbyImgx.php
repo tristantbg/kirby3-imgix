@@ -14,7 +14,8 @@ class App
     private static $defaultParams  = [
         'fit' => 'crop',
         'crop' => 'entropy',
-        'auto' => 'format'
+        'auto' => 'format,compress',
+        'cs' => 'tinysrgb'
       ];
     private static $builder = null;
 
@@ -23,6 +24,10 @@ class App
 
       self::$builder = new \Imgix\UrlBuilder($_ENV['IMGX_URL']);
       self::$builder->setUseHttps(true);
+
+      if (option('kirby-imgx.defaultparams')) {
+        self::$defaultParams = option('kirby-imgx.defaultparams');
+      }
 
 		  return self::$builder;
     }
