@@ -7,7 +7,30 @@ namespace Composer\Autoload;
 class ComposerStaticInite864568ce2bc4f08088c09ac04f947ae
 {
     public static $files = array (
+        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '75572ffc24f3424428f12650c79aa637' => __DIR__ . '/../..' . '/config.php',
+    );
+
+    public static $prefixLengthsPsr4 = array (
+        'S' => 
+        array (
+            'Symfony\\Polyfill\\Ctype\\' => 23,
+        ),
+        'D' => 
+        array (
+            'Dotenv\\' => 7,
+        ),
+    );
+
+    public static $prefixDirsPsr4 = array (
+        'Symfony\\Polyfill\\Ctype\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
+        ),
+        'Dotenv\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
+        ),
     );
 
     public static $prefixesPsr0 = array (
@@ -20,10 +43,29 @@ class ComposerStaticInite864568ce2bc4f08088c09ac04f947ae
         ),
     );
 
+    public static $classMap = array (
+        'Dotenv\\Dotenv' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Dotenv.php',
+        'Dotenv\\Exception\\ExceptionInterface' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Exception/ExceptionInterface.php',
+        'Dotenv\\Exception\\InvalidCallbackException' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Exception/InvalidCallbackException.php',
+        'Dotenv\\Exception\\InvalidFileException' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Exception/InvalidFileException.php',
+        'Dotenv\\Exception\\InvalidPathException' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Exception/InvalidPathException.php',
+        'Dotenv\\Exception\\ValidationException' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Exception/ValidationException.php',
+        'Dotenv\\Loader' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Loader.php',
+        'Dotenv\\Parser' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Parser.php',
+        'Dotenv\\Validator' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Validator.php',
+        'Imgix\\ShardStrategy' => __DIR__ . '/..' . '/imgix/imgix-php/src/Imgix/ShardStrategy.php',
+        'Imgix\\UrlBuilder' => __DIR__ . '/..' . '/imgix/imgix-php/src/Imgix/UrlBuilder.php',
+        'Imgix\\UrlHelper' => __DIR__ . '/..' . '/imgix/imgix-php/src/Imgix/UrlHelper.php',
+        'Symfony\\Polyfill\\Ctype\\Ctype' => __DIR__ . '/..' . '/symfony/polyfill-ctype/Ctype.php',
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+            $loader->prefixLengthsPsr4 = ComposerStaticInite864568ce2bc4f08088c09ac04f947ae::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInite864568ce2bc4f08088c09ac04f947ae::$prefixDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInite864568ce2bc4f08088c09ac04f947ae::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInite864568ce2bc4f08088c09ac04f947ae::$classMap;
 
         }, null, ClassLoader::class);
     }

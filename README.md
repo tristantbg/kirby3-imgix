@@ -1,10 +1,8 @@
 # Kirby3 Imgx
 
-config.php
+Check `.env.example` to create your `.env` file.
 
-```
-return [
-  'plugin.imgx.disable' => false,
-  'plugin.imgx.url' => 'XXXXX.imgix.net'
-];
-```
+Usage:
+`$site->imgxUrl($url, $params)`
+`$file->imgxUrl($params)`
+`$file->imgxThumb($params)`

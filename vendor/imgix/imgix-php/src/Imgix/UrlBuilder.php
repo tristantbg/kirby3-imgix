@@ -4,7 +4,7 @@ namespace Imgix;
 
 class UrlBuilder {
 
-    private $currentVersion = "2.1.1";
+    private $currentVersion = "2.3.0";
     private $domains;
     private $useHttps;
     private $signKey;
@@ -16,6 +16,8 @@ class UrlBuilder {
         if (!is_array($domains)) {
             $this->domains = array($domains);
         } else {
+            $warning_message = "Warning: Domain sharding has been deprecated and will be removed in the next major version.";
+            @trigger_error($warning_message, E_USER_DEPRECATED);
             $this->domains = $domains;
         }
 
@@ -23,10 +25,24 @@ class UrlBuilder {
             throw new \InvalidArgumentException("UrlBuilder requires at least one domain");
         }
 
+        $this->validateDomain($this->domains);        
+
         $this->useHttps = $useHttps;
         $this->signKey = $signKey;
         $this->shardStrategy = $shardStrategy;
         $this->includeLibraryParam = $includeLibraryParam;
+    }
+
+    private function validateDomain($domains) {
+        $DOMAIN_PATTERN = "/^(?:[a-z\d\-_]{1,62}\.){0,125}(?:[a-z\d](?:\-(?=\-*[a-z\d])|[a-z]|\d){0,62}\.)[a-z\d]{1,63}$/";
+
+        foreach($domains as $key => $val) {
+            if(!preg_match($DOMAIN_PATTERN, $val)) {
+                throw new \InvalidArgumentException('Domains must be passed in as fully-qualified ' . 
+                'domain names and should not include a protocol or any path element, i.e. ' .
+                '"example.imgix.net".'); 
+            }
+        }
     }
 
     public function setShardStrategy($start) {

@@ -1,6 +1,6 @@
 <?php
-$buildURL = function ($id, $params = []) {
-    return \Tristantbg\Imgx::buildURL($id, $params);
+$buildURL = function ($url, $params = []) {
+    return \KirbyImgx\App::buildURL($url, $params);
 };
 return array(
     'imgxUrl' => $buildURL,

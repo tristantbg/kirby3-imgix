@@ -5,11 +5,9 @@ use Imgix\ShardStrategy;
 
 class UrlBuilderTest extends \PHPUnit\Framework\TestCase {
 
-    /**
-     * @expectedException        InvalidArgumentException
-     * @expectedExceptionMessage UrlBuilder requires at least one domain
-     */
     public function testURLBuilderRaisesExceptionOnNoDomains() {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage("UrlBuilder requires at least one domain");
         $domains = array();
         $ub = new URLBuilder($domains);
     }
@@ -125,6 +123,57 @@ class UrlBuilderTest extends \PHPUnit\Framework\TestCase {
         $version = $composerFileJson['version'];
 
         $this->assertEquals("https://demos.imgix.net/https%3A%2F%2Fmy-demo-site.com%2Ffiles%2F133467012%2Favatar%20icon.png%3Fsome%3Dchill%26params%3D1?ixlib=php-" . $version, $url);
+    }
+    public function testNestedParameters() {
+        $builder = new UrlBuilder("demos.imgix.net", true, "", ShardStrategy::CRC, false);
+        $params = array("auto" => array("compress","format"));
+        $url = $builder->createURL("bridge.png", $params);
+
+        $this->assertEquals("https://demos.imgix.net/bridge.png?auto=compress%2Cformat", $url);
+    }
+    public function test_invalid_domain_append_slash() {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Domains must be passed in as fully-qualified ' . 
+        'domain names and should not include a protocol or any path element, i.e. ' .
+        '"example.imgix.net".');
+
+        $builder = new UrlBuilder("demos.imgix.net/", true, "", ShardStrategy::CRC, false);
+    }
+    public function test_invalid_domain_prepend_scheme() {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Domains must be passed in as fully-qualified ' . 
+        'domain names and should not include a protocol or any path element, i.e. ' .
+        '"example.imgix.net".');
+        
+        $builder = new UrlBuilder("https://demos.imgix.net", true, "", ShardStrategy::CRC, false);
+    }
+    public function test_invalid_domain_append_dash() {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Domains must be passed in as fully-qualified ' . 
+        'domain names and should not include a protocol or any path element, i.e. ' .
+        '"example.imgix.net".');
+        
+        $builder = new UrlBuilder("demos.imgix.net-", true, "", ShardStrategy::CRC, false);
+    }
+    public function test_invalid_domain_array() {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Domains must be passed in as fully-qualified ' . 
+        'domain names and should not include a protocol or any path element, i.e. ' .
+        '"example.imgix.net".');
+        
+        $builder = new UrlBuilder(array("demos.imgix.net","demos.imgix.net-"), true, "", ShardStrategy::CYCLE, false);
+    }
+    public function test_deprecation_warning() {
+        # Tests for deprecation warning using a custom error handler
+        # as the warning is typically suppressed to prevent polluting 
+        # error logs
+        set_error_handler(function($errno, $errstr, $errfile, $errline) {
+            $warning_message = "Warning: Domain sharding has been deprecated and will be removed in the next major version.";
+            $this->assertEquals($warning_message, $errstr);
+            $this->assertEquals(E_USER_DEPRECATED, $errno);
+        }, E_USER_DEPRECATED);
+
+        $builder = new UrlBuilder(array("demos.imgix.net","demos.imgix.net"), true, "", ShardStrategy::CYCLE, false);
     }
   }
 ?>
