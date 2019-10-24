@@ -23,6 +23,7 @@ class App
     {
 
       self::$builder = new \Imgix\UrlBuilder($_ENV['IMGIX_URL']);
+      if(isset($_ENV['IMGIX_SIGNKEY'])) self::$builder->setSignKey($_ENV['IMGIX_SIGNKEY']);
       self::$builder->setUseHttps(true);
 
       if (option('kirby-imgix.defaultparams')) {
