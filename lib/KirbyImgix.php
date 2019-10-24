@@ -3,7 +3,7 @@
 use \Dotenv\Dotenv;
 use \Imgix\UrlBuilder;
 
-namespace KirbyImgx;
+namespace KirbyImgix;
 
 $dotenv = new \Dotenv\Dotenv(__DIR__ . str_repeat(DIRECTORY_SEPARATOR . '..', 1));
 $dotenv->load();
@@ -22,11 +22,11 @@ class App
     public static function init()
     {
 
-      self::$builder = new \Imgix\UrlBuilder($_ENV['IMGX_URL']);
+      self::$builder = new \Imgix\UrlBuilder($_ENV['IMGIX_URL']);
       self::$builder->setUseHttps(true);
 
-      if (option('kirby-imgx.defaultparams')) {
-        self::$defaultParams = option('kirby-imgx.defaultparams');
+      if (option('kirby-imgix.defaultparams')) {
+        self::$defaultParams = option('kirby-imgix.defaultparams');
       }
 
 		  return self::$builder;
@@ -35,7 +35,7 @@ class App
     public static function buildURL($url, $params = [])
     {
 
-      if(!self::$builder) \KirbyImgx\App::init();
+      if(!self::$builder) \KirbyImgix\App::init();
 
       $params = array_merge($params, self::$defaultParams);
 
@@ -45,7 +45,7 @@ class App
     public static function buildFileURL($file, $params = [])
     {
 
-      if(!self::$builder) \KirbyImgx\App::init();
+      if(!self::$builder) \KirbyImgix\App::init();
 
       $params = array_merge($params, self::$defaultParams);
 

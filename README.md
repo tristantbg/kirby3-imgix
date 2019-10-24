@@ -1,8 +1,8 @@
-# Kirby3 Imgx
+# Kirby3 Imgix
 
 Check `.env.example` to create your `.env` file.
 
 Usage:
-`$site->imgxUrl($url, $params)`
-`$file->imgxUrl($params)`
-`$file->imgxThumb($params)`
+`$site->imgixUrl($url, $params)`
+`$file->imgixUrl($params)`
+`$file->imgixThumb($params)`

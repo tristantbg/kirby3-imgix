@@ -1,7 +1,7 @@
 <?php
 $buildFileURL = function ($params = []) {
-    return \KirbyImgx\App::buildFileURL($this, $params);
+    return \KirbyImgix\App::buildFileURL($this, $params);
 };
 return array(
-    'imgxUrl' => $buildFileURL,
+    'imgixUrl' => $buildFileURL,
 );
